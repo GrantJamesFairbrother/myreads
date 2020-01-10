@@ -5,11 +5,10 @@ const ListBooks = ({ books, shelf }) => {
   return (
     <div className='bookshelf-books'>
       <ol className='books-grid'>
-        {books
-          .filter(book => book.shelf === shelf)
-          .map(book => (
-            <Books book={book} key={book.id} />
-          ))}
+        {books &&
+          books
+            .filter(book => book.shelf === shelf)
+            .map(book => <Books book={book} key={book.id} />)}
       </ol>
     </div>
   );

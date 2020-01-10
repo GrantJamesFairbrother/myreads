@@ -7,13 +7,15 @@ import {
   CHANGE_SHELF,
   REMOVE_BOOK,
   SEARCH_BOOKS,
-  CLEAR_BOOKS
+  CLEAR_BOOKS,
+  ADD_BOOK
 } from './types';
 import * as BooksAPI from '../BooksAPI';
 
 const BookState = props => {
   const initialState = {
-    books: [],
+    books: null,
+    selectedBook: null,
     searchResult: null,
     showSearchPage: false,
     loading: false
@@ -22,6 +24,7 @@ const BookState = props => {
   const [state, dispatch] = useReducer(BookReducer, initialState);
 
   useEffect(() => console.log(state.books));
+  useEffect(() => console.log(state.searchResult));
 
   // Get All Books
   useEffect(() => {
@@ -31,12 +34,20 @@ const BookState = props => {
   }, []);
 
   // Search for Books
-  const searchBooks = async text => {
+  const searchBooks = text => {
     text
       ? BooksAPI.search(text).then(books => {
           dispatch({ type: SEARCH_BOOKS, payload: books });
         })
       : dispatch({ type: CLEAR_BOOKS });
+  };
+
+  // Add Book to Book Shelf
+  const addBook = (event, book) => {
+    dispatch({
+      type: ADD_BOOK,
+      payload: { shelf: event.target.value, book: book }
+    });
   };
 
   // Display Search
@@ -62,10 +73,12 @@ const BookState = props => {
     <BookContext.Provider
       value={{
         books: state.books,
+        selectedBook: state.selectedBook,
         searchResult: state.searchResult,
         showSearchPage: state.showSearchPage,
         loading: state.loading,
         searchBooks,
+        addBook,
         displaySearch,
         changeShelf,
         removeBook

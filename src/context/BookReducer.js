@@ -4,7 +4,8 @@ import {
   CHANGE_SHELF,
   REMOVE_BOOK,
   SEARCH_BOOKS,
-  CLEAR_BOOKS
+  CLEAR_BOOKS,
+  ADD_BOOK
 } from './types';
 
 export default (state, action) => {
@@ -16,10 +17,16 @@ export default (state, action) => {
       };
 
     case SEARCH_BOOKS:
-      console.log(action.payload);
       return {
         ...state,
         searchResult: !action.payload.error ? action.payload : null
+      };
+
+    case ADD_BOOK:
+      action.payload.book.shelf = action.payload.shelf;
+      return {
+        ...state,
+        books: [...state.books, action.payload.book]
       };
 
     case CLEAR_BOOKS:
