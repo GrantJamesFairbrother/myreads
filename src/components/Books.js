@@ -13,12 +13,14 @@ const Book = ({ book }) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url("${imageLinks.thumbnail}")`
+              backgroundImage: `url("${imageLinks && imageLinks.thumbnail}")`
             }}></div>
           <BookShelfChanger book={book} />
         </div>
         <div className='book-title'>{title}</div>
-        <div className='book-authors'>{authors.map(author => author)}</div>
+        <div className='book-authors'>
+          {book.authors && authors.map(author => author)}
+        </div>
       </div>
     </li>
   );

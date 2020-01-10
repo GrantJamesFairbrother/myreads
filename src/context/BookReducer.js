@@ -2,7 +2,9 @@ import {
   DISPLAY_SEARCH,
   GET_ALL_BOOKS,
   CHANGE_SHELF,
-  REMOVE_BOOK
+  REMOVE_BOOK,
+  SEARCH_BOOKS,
+  CLEAR_BOOKS
 } from './types';
 
 export default (state, action) => {
@@ -11,6 +13,19 @@ export default (state, action) => {
       return {
         ...state,
         books: action.payload
+      };
+
+    case SEARCH_BOOKS:
+      console.log(action.payload);
+      return {
+        ...state,
+        searchResult: !action.payload.error ? action.payload : null
+      };
+
+    case CLEAR_BOOKS:
+      return {
+        ...state,
+        searchResult: null
       };
 
     case DISPLAY_SEARCH:
@@ -36,8 +51,6 @@ export default (state, action) => {
         ...state,
         books: state.books.filter(book => book.id !== action.payload)
       };
-
-    // fix remove book
 
     default:
       return state;

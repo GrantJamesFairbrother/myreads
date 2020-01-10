@@ -1,5 +1,6 @@
 import React from 'react';
 import ListBooks from './ListBooks';
+import { Link } from 'react-router-dom';
 
 const BookShelf = ({ books, displaySearch }) => {
   return (
@@ -16,9 +17,9 @@ const BookShelf = ({ books, displaySearch }) => {
         <h2 className='bookshelf-title'>Read</h2>
         <ListBooks books={books} shelf={'read'} />
       </div>
-      <div className='open-search'>
+      <Link className='open-search' to='/search'>
         <button onClick={() => displaySearch(true)}>Add a book</button>
-      </div>
+      </Link>
     </div>
   );
 };
