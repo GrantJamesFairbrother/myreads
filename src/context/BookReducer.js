@@ -34,22 +34,12 @@ export default (state, action) => {
     case REMOVE_BOOK:
       return {
         ...state,
-        books: state.books.filter(book => book.id !== action.payload.id)
+        books: state.books.filter(book => book.id !== action.payload)
       };
+
+    // fix remove book
 
     default:
       return state;
   }
 };
-
-// books: state.books.map(book => {
-//   console.log(book);
-//   return book.id === action.payload.book.id
-//     ? (book.shelf = action.payload.shelf)
-//     : book;
-// })
-
-// books: state.books.filter(book => {
-//   book.shelf = action.payload.shelf;
-//   return book.id === action.payload.book.id;
-// })
