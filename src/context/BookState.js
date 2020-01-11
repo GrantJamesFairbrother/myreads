@@ -5,11 +5,9 @@ import {
   DISPLAY_SEARCH,
   GET_ALL_BOOKS,
   CHANGE_SHELF,
-  REMOVE_BOOK,
   SEARCH_BOOKS,
   CLEAR_BOOKS,
-  ADD_BOOK,
-  GET_BOOKSHELF_DATA
+  ADD_BOOK
 } from './types';
 import * as BooksAPI from '../BooksAPI';
 
@@ -18,15 +16,11 @@ const BookState = props => {
     books: null,
     selectedBook: null,
     searchResult: null,
-    bookShelfBooks: null,
     showSearchPage: false,
     loading: false
   };
 
   const [state, dispatch] = useReducer(BookReducer, initialState);
-
-  //useEffect(() => console.log(state.books));
-  useEffect(() => console.log(state.searchResult));
 
   // Get All Books
   useEffect(() => {
@@ -36,10 +30,22 @@ const BookState = props => {
   }, []);
 
   // Search for Books
-  const searchBooks = text => {
-    text
-      ? BooksAPI.search(text).then(books => {
-          dispatch({ type: SEARCH_BOOKS, payload: books });
+  const searchBooks = searchText => {
+    let searchResult = [];
+    searchText
+      ? BooksAPI.search(searchText).then(async books => {
+          console.log(books);
+          !books.error
+            ? await books.map(book =>
+                BooksAPI.get(book.id).then(book => {
+                  searchResult.push(book);
+                  dispatch({
+                    type: SEARCH_BOOKS,
+                    payload: searchResult
+                  });
+                })
+              )
+            : dispatch({ type: CLEAR_BOOKS });
         })
       : dispatch({ type: CLEAR_BOOKS });
   };
@@ -52,24 +58,14 @@ const BookState = props => {
     });
   };
 
-  // Update API Book Shelf
+  // Update API Bookshelf
   useEffect(() => {
     async function updateShelf() {
       state.selectedBook &&
-        (await BooksAPI.update(
-          state.selectedBook,
-          state.selectedBook.shelf
-        ).then(bookShelfData => {
-          dispatch({ type: GET_BOOKSHELF_DATA, payload: bookShelfData });
-        }));
+        (await BooksAPI.update(state.selectedBook, state.selectedBook.shelf));
     }
     updateShelf();
   });
-
-  // Display Search
-  const displaySearch = value => {
-    dispatch({ type: DISPLAY_SEARCH, payload: value });
-  };
 
   // Change Shelf
   const changeShelf = (event, book) => {
@@ -79,9 +75,14 @@ const BookState = props => {
     });
   };
 
-  // Remove Book
-  const removeBook = id => {
-    dispatch({ type: REMOVE_BOOK, payload: id });
+  // Display Search Page
+  const toggleSearch = value => {
+    dispatch({ type: DISPLAY_SEARCH, payload: value });
+  };
+
+  // Clear Search Results
+  const clearSearchResults = () => {
+    dispatch({ type: CLEAR_BOOKS });
   };
 
   return (
@@ -90,14 +91,13 @@ const BookState = props => {
         books: state.books,
         selectedBook: state.selectedBook,
         searchResult: state.searchResult,
-        bookShelfBooks: state.bookShelfBooks,
         showSearchPage: state.showSearchPage,
         loading: state.loading,
         searchBooks,
         addBook,
-        displaySearch,
         changeShelf,
-        removeBook
+        toggleSearch,
+        clearSearchResults
       }}>
       {props.children}
     </BookContext.Provider>

@@ -1,9 +1,8 @@
 Must Do
 Clear search on return to bookshelf
-Make sure state is the same on the search page
 Fix book title space issue
-Fix none on drop down.
-Find a better way to update shelf. Currently it is in the map and therefore updating many times. Find a way to get book/shelf of selected book.
+Change to context whereever possible
+Add proptypes where necessary
 
 Want to Do (Spare time)
 Fix Remove Book.

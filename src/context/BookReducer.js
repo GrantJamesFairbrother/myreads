@@ -2,11 +2,9 @@ import {
   DISPLAY_SEARCH,
   GET_ALL_BOOKS,
   CHANGE_SHELF,
-  REMOVE_BOOK,
   SEARCH_BOOKS,
   CLEAR_BOOKS,
-  ADD_BOOK,
-  GET_BOOKSHELF_DATA
+  ADD_BOOK
 } from './types';
 
 export default (state, action) => {
@@ -20,7 +18,7 @@ export default (state, action) => {
     case SEARCH_BOOKS:
       return {
         ...state,
-        searchResult: !action.payload.error ? action.payload : null //Get search books shelf to match state books shelf
+        searchResult: action.payload
       };
 
     case ADD_BOOK:
@@ -29,18 +27,6 @@ export default (state, action) => {
         ...state,
         books: [...state.books, action.payload.book],
         selectedBook: action.payload.book
-      };
-
-    case CLEAR_BOOKS:
-      return {
-        ...state,
-        searchResult: null
-      };
-
-    case DISPLAY_SEARCH:
-      return {
-        ...state,
-        showSearchPage: action.payload
       };
 
     case CHANGE_SHELF:
@@ -57,17 +43,16 @@ export default (state, action) => {
         selectedBook: action.payload.book
       };
 
-    case GET_BOOKSHELF_DATA:
-      console.log(action.payload);
+    case CLEAR_BOOKS:
       return {
         ...state,
-        bookShelfBooks: action.payload
+        searchResult: null
       };
 
-    case REMOVE_BOOK:
+    case DISPLAY_SEARCH:
       return {
         ...state,
-        books: state.books.filter(book => book.id !== action.payload)
+        showSearchPage: action.payload
       };
 
     default:

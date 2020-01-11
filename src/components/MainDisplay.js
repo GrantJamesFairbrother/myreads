@@ -9,7 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 const MainDisplay = () => {
   const bookContext = useContext(BookContext);
 
-  const { books, showSearchPage, displaySearch } = bookContext;
+  const { showSearchPage } = bookContext;
 
   return (
     <div className='app'>
@@ -25,7 +25,7 @@ const MainDisplay = () => {
                 <>
                   <div className='list-books'>
                     <Header />
-                    <BookShelf books={books} displaySearch={displaySearch} />
+                    <BookShelf />
                   </div>
                 </>
               );

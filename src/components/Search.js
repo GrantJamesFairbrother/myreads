@@ -7,7 +7,12 @@ import Books from './Books';
 const Search = () => {
   const bookContext = useContext(BookContext);
 
-  const { displaySearch, searchBooks, searchResult } = bookContext;
+  const {
+    toggleSearch,
+    searchBooks,
+    searchResult,
+    clearSearchResults
+  } = bookContext;
 
   return (
     <div className='search-books'>
@@ -15,7 +20,10 @@ const Search = () => {
         <Link
           to='/'
           className='close-search'
-          onClick={() => displaySearch(false)}>
+          onClick={() => {
+            toggleSearch(false);
+            clearSearchResults();
+          }}>
           Close
         </Link>
         <div className='search-books-input-wrapper'>

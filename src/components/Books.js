@@ -19,7 +19,14 @@ const Book = ({ book }) => {
         </div>
         <div className='book-title'>{title}</div>
         <div className='book-authors'>
-          {book.authors && authors.map(author => author)}
+          {book.authors &&
+            authors.map(author => {
+              let count = 1;
+              if (count !== authors.length) {
+                count++;
+                return author + ' ';
+              } else return author;
+            })}
         </div>
       </div>
     </li>
