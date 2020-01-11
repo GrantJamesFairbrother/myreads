@@ -6,3 +6,4 @@ export const REMOVE_BOOK = 'REMOVE_BOOK';
 export const SEARCH_BOOKS = 'SEARCH_BOOKS';
 export const CLEAR_BOOKS = 'CLEAR_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
+export const GET_BOOKSHELF_DATA = 'GET_BOOKSHELF_DATA';

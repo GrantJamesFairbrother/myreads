@@ -1,22 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import BookContext from '../context/bookContext';
-import { update } from '../BooksAPI';
 
 const BookShelfChanger = ({ book }) => {
   const bookContext = useContext(BookContext);
 
   const { changeShelf, removeBook, addBook } = bookContext;
   const { id, shelf } = book;
-
-  useEffect(() => {
-    async function updateShelf() {
-      shelf &&
-        (await update(book, shelf).then(shelves => {
-          console.log(shelves);
-        }));
-    }
-    updateShelf();
-  });
 
   return (
     <div className='book-shelf-changer'>
@@ -26,7 +15,7 @@ const BookShelfChanger = ({ book }) => {
           event.target.value === 'remove'
             ? removeBook(id)
             : shelf
-            ? changeShelf(event, id)
+            ? changeShelf(event, book)
             : addBook(event, book);
         }}>
         <option value='move' disabled>
