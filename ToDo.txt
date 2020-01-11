@@ -2,4 +2,3 @@ Must Do
 
 Want to Do (Spare time)
 Fix 404 page
-Add message to show book was added to library from search page.

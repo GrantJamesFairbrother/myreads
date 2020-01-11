@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import BookContext from '../context/bookContext';
 import Books from './Books';
 import Spinner from './spinner/Spinner';
+import AddedBookAlert from './AddedBookAlert';
 
 const Search = () => {
   const bookContext = useContext(BookContext);
@@ -12,7 +13,8 @@ const Search = () => {
     searchBooks,
     searchResult,
     clearSearchResults,
-    loading
+    loading,
+    alert
   } = bookContext;
 
   return (
@@ -37,11 +39,13 @@ const Search = () => {
           />
         </div>
       </div>
+
       <div className='search-books-results'>
         {loading ? (
           <Spinner />
         ) : (
           <ol className='books-grid'>
+            {alert && <AddedBookAlert />}
             {searchResult ? (
               searchResult.map(book => <Books book={book} key={book.id} />)
             ) : (

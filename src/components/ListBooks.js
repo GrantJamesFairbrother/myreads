@@ -22,9 +22,9 @@ const ListBooks = ({ books, shelf }) => {
   );
 };
 
-export default ListBooks;
-
 ListBooks.propTypes = {
   books: PropTypes.array,
   shelf: PropTypes.string.isRequired
 };
+
+export default ListBooks;

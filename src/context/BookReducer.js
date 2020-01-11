@@ -5,7 +5,9 @@ import {
   SEARCH_BOOKS,
   CLEAR_BOOKS,
   ADD_BOOK,
-  SET_LOADING
+  SET_LOADING,
+  SHOW_ALERT,
+  REMOVE_ALERT
 } from './types';
 
 export default (state, action) => {
@@ -63,6 +65,18 @@ export default (state, action) => {
       return {
         ...state,
         showSearchPage: action.payload
+      };
+
+    case SHOW_ALERT:
+      return {
+        ...state,
+        alert: true
+      };
+
+    case REMOVE_ALERT:
+      return {
+        ...state,
+        alert: false
       };
 
     default:

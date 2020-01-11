@@ -213,3 +213,18 @@ button:active {
   opacity: 0;
   transition: opacity 500ms ease-in;
 }
+
+.book-alert {
+  background-color: #2e7c31;
+  width: 100%;
+  position: relative;
+  display: block;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  border: 2px #042c05 solid;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 1.5rem;
+}

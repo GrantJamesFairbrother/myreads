@@ -8,7 +8,9 @@ import {
   SEARCH_BOOKS,
   CLEAR_BOOKS,
   ADD_BOOK,
-  SET_LOADING
+  SET_LOADING,
+  SHOW_ALERT,
+  REMOVE_ALERT
 } from './types';
 import * as BooksAPI from '../BooksAPI';
 
@@ -18,7 +20,8 @@ const BookState = props => {
     selectedBook: null,
     searchResult: null,
     showSearchPage: false,
-    loading: false
+    loading: false,
+    alert: false
   };
 
   const [state, dispatch] = useReducer(BookReducer, initialState);
@@ -39,7 +42,6 @@ const BookState = props => {
     let searchResult = [];
     searchText
       ? BooksAPI.search(searchText).then(async books => {
-          console.log(books);
           !books.error
             ? await books.map(book =>
                 BooksAPI.get(book.id).then(book => {
@@ -61,6 +63,8 @@ const BookState = props => {
       type: ADD_BOOK,
       payload: { shelf: event.target.value, book: book }
     });
+
+    showAlert();
   };
 
   // Update API Bookshelf
@@ -95,6 +99,15 @@ const BookState = props => {
     dispatch({ type: CLEAR_BOOKS });
   };
 
+  // Show Alert
+  const showAlert = () => {
+    dispatch({ type: SHOW_ALERT });
+
+    setTimeout(() => {
+      dispatch({ type: REMOVE_ALERT });
+    }, 3000);
+  };
+
   return (
     <BookContext.Provider
       value={{
@@ -103,6 +116,7 @@ const BookState = props => {
         searchResult: state.searchResult,
         showSearchPage: state.showSearchPage,
         loading: state.loading,
+        alert: state.alert,
         searchBooks,
         addBook,
         changeShelf,
