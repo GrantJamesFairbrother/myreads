@@ -1,11 +1,5 @@
 Must Do
-Clear search on return to bookshelf
-Fix book title space issue
-Change to context whereever possible
-Add proptypes where necessary
 
 Want to Do (Spare time)
-Fix Remove Book.
-Spinner
 Fix 404 page
-React animations for changing a book's shelf.
+Add message to show book was added to library from search page.

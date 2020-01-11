@@ -4,7 +4,8 @@ import {
   CHANGE_SHELF,
   SEARCH_BOOKS,
   CLEAR_BOOKS,
-  ADD_BOOK
+  ADD_BOOK,
+  SET_LOADING
 } from './types';
 
 export default (state, action) => {
@@ -12,13 +13,15 @@ export default (state, action) => {
     case GET_ALL_BOOKS:
       return {
         ...state,
-        books: action.payload
+        books: action.payload,
+        loading: false
       };
 
     case SEARCH_BOOKS:
       return {
         ...state,
-        searchResult: action.payload
+        searchResult: action.payload,
+        loading: false
       };
 
     case ADD_BOOK:
@@ -46,7 +49,14 @@ export default (state, action) => {
     case CLEAR_BOOKS:
       return {
         ...state,
-        searchResult: null
+        searchResult: null,
+        loading: false
+      };
+
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
       };
 
     case DISPLAY_SEARCH:

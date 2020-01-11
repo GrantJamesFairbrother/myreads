@@ -1,5 +1,6 @@
 import React from 'react';
 import BookShelfChanger from './BookShelfChanger';
+import PropTypes from 'prop-types';
 
 const Book = ({ book }) => {
   const { title, authors, imageLinks } = book;
@@ -34,3 +35,7 @@ const Book = ({ book }) => {
 };
 
 export default Book;
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired
+};

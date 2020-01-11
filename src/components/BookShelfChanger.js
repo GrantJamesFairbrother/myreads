@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import BookContext from '../context/bookContext';
+import PropTypes from 'prop-types';
 
 const BookShelfChanger = ({ book }) => {
   const bookContext = useContext(BookContext);
 
   const { changeShelf, addBook } = bookContext;
+
   const { shelf } = book;
 
   return (
@@ -27,3 +29,7 @@ const BookShelfChanger = ({ book }) => {
 };
 
 export default BookShelfChanger;
+
+BookShelfChanger.propTypes = {
+  book: PropTypes.object.isRequired
+};

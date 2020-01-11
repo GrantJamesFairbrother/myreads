@@ -7,7 +7,8 @@ import {
   CHANGE_SHELF,
   SEARCH_BOOKS,
   CLEAR_BOOKS,
-  ADD_BOOK
+  ADD_BOOK,
+  SET_LOADING
 } from './types';
 import * as BooksAPI from '../BooksAPI';
 
@@ -24,6 +25,8 @@ const BookState = props => {
 
   // Get All Books
   useEffect(() => {
+    setLoading();
+
     BooksAPI.getAll().then(books => {
       dispatch({ type: GET_ALL_BOOKS, payload: books });
     });
@@ -31,6 +34,8 @@ const BookState = props => {
 
   // Search for Books
   const searchBooks = searchText => {
+    setLoading();
+
     let searchResult = [];
     searchText
       ? BooksAPI.search(searchText).then(async books => {
@@ -60,9 +65,9 @@ const BookState = props => {
 
   // Update API Bookshelf
   useEffect(() => {
-    async function updateShelf() {
+    function updateShelf() {
       state.selectedBook &&
-        (await BooksAPI.update(state.selectedBook, state.selectedBook.shelf));
+        BooksAPI.update(state.selectedBook, state.selectedBook.shelf);
     }
     updateShelf();
   });
@@ -78,6 +83,11 @@ const BookState = props => {
   // Display Search Page
   const toggleSearch = value => {
     dispatch({ type: DISPLAY_SEARCH, payload: value });
+  };
+
+  // Set Loading
+  const setLoading = () => {
+    dispatch({ type: SET_LOADING });
   };
 
   // Clear Search Results

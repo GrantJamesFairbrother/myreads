@@ -4,12 +4,13 @@ import Search from './Search';
 import Header from './Header';
 import BookShelf from './BookShelf';
 import { Route, Switch } from 'react-router-dom';
+import Spinner from './spinner/Spinner';
 //import PageNotFound from './404/PageNotFound';
 
 const MainDisplay = () => {
   const bookContext = useContext(BookContext);
 
-  const { showSearchPage } = bookContext;
+  const { showSearchPage, loading } = bookContext;
 
   return (
     <div className='app'>
@@ -25,7 +26,7 @@ const MainDisplay = () => {
                 <>
                   <div className='list-books'>
                     <Header />
-                    <BookShelf />
+                    {loading ? <Spinner /> : <BookShelf />}
                   </div>
                 </>
               );
