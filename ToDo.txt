@@ -1,4 +1,6 @@
 Must Do
 
 Want to Do (Spare time)
-Fix History
+
+Bulk move books functionality 
+Rating books functionality
