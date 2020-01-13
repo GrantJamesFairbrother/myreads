@@ -6,7 +6,7 @@ import BookContext from '../context/bookContext';
 const BookShelf = () => {
   const bookContext = useContext(BookContext);
 
-  const { books, toggleSearch } = bookContext;
+  const { books } = bookContext;
 
   return (
     <div className='list-books-content'>
@@ -23,7 +23,7 @@ const BookShelf = () => {
         <ListBooks books={books} shelf={'read'} />
       </div>
       <Link className='open-search' to='/search'>
-        <button onClick={() => toggleSearch(true)}>Add a book</button>
+        <button>Add a book</button>
       </Link>
     </div>
   );

@@ -34,8 +34,8 @@ const Book = ({ book }) => {
   );
 };
 
-export default Book;
-
 Book.propTypes = {
   book: PropTypes.object.isRequired
 };
+
+export default Book;

@@ -28,8 +28,8 @@ const BookShelfChanger = ({ book }) => {
   );
 };
 
-export default BookShelfChanger;
-
 BookShelfChanger.propTypes = {
   book: PropTypes.object.isRequired
 };
+
+export default BookShelfChanger;

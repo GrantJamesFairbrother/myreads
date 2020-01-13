@@ -1,5 +1,4 @@
 import {
-  DISPLAY_SEARCH,
   GET_ALL_BOOKS,
   CHANGE_SHELF,
   SEARCH_BOOKS,
@@ -59,12 +58,6 @@ export default (state, action) => {
       return {
         ...state,
         loading: true
-      };
-
-    case DISPLAY_SEARCH:
-      return {
-        ...state,
-        showSearchPage: action.payload
       };
 
     case SHOW_ALERT:

@@ -9,7 +9,6 @@ const Search = () => {
   const bookContext = useContext(BookContext);
 
   const {
-    toggleSearch,
     searchBooks,
     searchResult,
     clearSearchResults,
@@ -24,7 +23,6 @@ const Search = () => {
           to='/'
           className='close-search'
           onClick={() => {
-            toggleSearch(false);
             clearSearchResults();
           }}>
           Close

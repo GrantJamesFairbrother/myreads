@@ -2,7 +2,6 @@ import React, { useReducer, useEffect } from 'react';
 import BookContext from './bookContext';
 import BookReducer from './BookReducer';
 import {
-  DISPLAY_SEARCH,
   GET_ALL_BOOKS,
   CHANGE_SHELF,
   SEARCH_BOOKS,
@@ -19,7 +18,6 @@ const BookState = props => {
     books: null,
     selectedBook: null,
     searchResult: null,
-    showSearchPage: false,
     loading: false,
     alert: false
   };
@@ -84,11 +82,6 @@ const BookState = props => {
     });
   };
 
-  // Display Search Page
-  const toggleSearch = value => {
-    dispatch({ type: DISPLAY_SEARCH, payload: value });
-  };
-
   // Set Loading
   const setLoading = () => {
     dispatch({ type: SET_LOADING });
@@ -114,13 +107,11 @@ const BookState = props => {
         books: state.books,
         selectedBook: state.selectedBook,
         searchResult: state.searchResult,
-        showSearchPage: state.showSearchPage,
         loading: state.loading,
         alert: state.alert,
         searchBooks,
         addBook,
         changeShelf,
-        toggleSearch,
         clearSearchResults
       }}>
       {props.children}

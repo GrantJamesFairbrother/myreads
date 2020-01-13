@@ -1,4 +1,3 @@
-export const DISPLAY_SEARCH = 'DISPLAY_SEARCH';
 export const GET_ALL_BOOKS = 'GET_ALL_BOOKS';
 export const CHANGE_SHELF = 'CHANGE_SHELF';
 export const SEARCH_BOOKS = 'SEARCH_BOOKS';
