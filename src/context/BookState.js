@@ -19,7 +19,8 @@ const BookState = props => {
     selectedBook: null,
     searchResult: null,
     loading: false,
-    alert: false
+    alert: false,
+    noResults: false
   };
 
   const [state, dispatch] = useReducer(BookReducer, initialState);
@@ -34,25 +35,26 @@ const BookState = props => {
   }, []);
 
   // Search for Books
-  const searchBooks = searchText => {
+  const searchBooks = async (searchText, books) => {
     setLoading();
 
-    let searchResult = [];
-    searchText
-      ? BooksAPI.search(searchText).then(async books => {
-          !books.error
-            ? await books.map(book =>
-                BooksAPI.get(book.id).then(book => {
-                  searchResult.push(book);
-                  dispatch({
-                    type: SEARCH_BOOKS,
-                    payload: searchResult
-                  });
-                })
-              )
-            : dispatch({ type: CLEAR_BOOKS });
-        })
-      : dispatch({ type: CLEAR_BOOKS });
+    if (searchText) {
+      const res = await BooksAPI.search(searchText);
+
+      if (!res.error) {
+        res.map(searchBook => {
+          books.forEach(bookshelfBook => {
+            if (searchBook.id === bookshelfBook.id) {
+              searchBook.shelf = bookshelfBook.shelf;
+            }
+          });
+          return searchBook;
+        });
+        dispatch({ type: SEARCH_BOOKS, payload: res });
+      } else {
+        dispatch({ type: CLEAR_BOOKS });
+      }
+    } else dispatch({ type: CLEAR_BOOKS, payload: searchText });
   };
 
   // Add Book to Book Shelf
@@ -88,8 +90,8 @@ const BookState = props => {
   };
 
   // Clear Search Results
-  const clearSearchResults = () => {
-    dispatch({ type: CLEAR_BOOKS });
+  const clearSearchResults = (searchText = '') => {
+    dispatch({ type: CLEAR_BOOKS, payload: searchText });
   };
 
   // Show Alert
@@ -109,6 +111,7 @@ const BookState = props => {
         searchResult: state.searchResult,
         loading: state.loading,
         alert: state.alert,
+        noResults: state.noResults,
         searchBooks,
         addBook,
         changeShelf,
@@ -120,3 +123,24 @@ const BookState = props => {
 };
 
 export default BookState;
+
+// const searchBooks = searchText => {
+//   setLoading();
+
+//   let searchResult = [];
+//   searchText
+//     ? BooksAPI.search(searchText).then(async books => {
+//         !books.error
+//           ? await books.map(book =>
+//               BooksAPI.get(book.id).then(book => {
+//                 searchResult.push(book);
+//                 dispatch({
+//                   type: SEARCH_BOOKS,
+//                   payload: searchResult
+//                 });
+//               })
+//             )
+//           : dispatch({ type: CLEAR_BOOKS });
+//       })
+//     : dispatch({ type: CLEAR_BOOKS });
+// };

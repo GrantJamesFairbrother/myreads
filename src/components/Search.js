@@ -9,11 +9,13 @@ const Search = () => {
   const bookContext = useContext(BookContext);
 
   const {
+    books,
     searchBooks,
     searchResult,
     clearSearchResults,
     loading,
-    alert
+    alert,
+    noResults
   } = bookContext;
 
   return (
@@ -30,7 +32,7 @@ const Search = () => {
         <div className='search-books-input-wrapper'>
           <input
             onChange={event => {
-              searchBooks(event.target.value);
+              searchBooks(event.target.value, books);
             }}
             type='text'
             placeholder='Search by title or author'
@@ -46,6 +48,8 @@ const Search = () => {
             {alert && <AddedBookAlert />}
             {searchResult ? (
               searchResult.map(book => <Books book={book} key={book.id} />)
+            ) : !searchResult && noResults ? (
+              <li>No Books Found</li>
             ) : (
               <li>
                 <p>

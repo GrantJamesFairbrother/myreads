@@ -8,20 +8,20 @@ const BookShelf = () => {
 
   const { books } = bookContext;
 
+  const shelves = {
+    currentlyReading: ['Currently Reading', 'currentlyReading'],
+    wantToRead: ['Want to Read', 'wantToRead'],
+    read: ['Read', 'read']
+  };
+
   return (
     <div className='list-books-content'>
-      <div className='bookshelf'>
-        <h2 className='bookshelf-title'>Currently Reading</h2>
-        <ListBooks books={books} shelf={'currentlyReading'} />
-      </div>
-      <div className='bookshelf'>
-        <h2 className='bookshelf-title'>Want to Read</h2>
-        <ListBooks books={books} shelf={'wantToRead'} />
-      </div>
-      <div className='bookshelf'>
-        <h2 className='bookshelf-title'>Read</h2>
-        <ListBooks books={books} shelf={'read'} />
-      </div>
+      {Object.values(shelves).map(shelf => (
+        <div key={shelf[1]} className='bookshelf'>
+          <h2 className='bookshelf-title'>{shelf[0]}</h2>
+          <ListBooks books={books} shelf={shelf[1]} />
+        </div>
+      ))}
       <Link className='open-search' to='/search'>
         <button>Add a book</button>
       </Link>

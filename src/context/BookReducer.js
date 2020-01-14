@@ -22,6 +22,7 @@ export default (state, action) => {
       return {
         ...state,
         searchResult: action.payload,
+        noResults: false,
         loading: false
       };
 
@@ -48,9 +49,11 @@ export default (state, action) => {
       };
 
     case CLEAR_BOOKS:
+      console.log(action.payload);
       return {
         ...state,
         searchResult: null,
+        noResults: action.payload === '' ? false : true,
         loading: false
       };
 
