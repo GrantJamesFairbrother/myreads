@@ -123,24 +123,3 @@ const BookState = props => {
 };
 
 export default BookState;
-
-// const searchBooks = searchText => {
-//   setLoading();
-
-//   let searchResult = [];
-//   searchText
-//     ? BooksAPI.search(searchText).then(async books => {
-//         !books.error
-//           ? await books.map(book =>
-//               BooksAPI.get(book.id).then(book => {
-//                 searchResult.push(book);
-//                 dispatch({
-//                   type: SEARCH_BOOKS,
-//                   payload: searchResult
-//                 });
-//               })
-//             )
-//           : dispatch({ type: CLEAR_BOOKS });
-//       })
-//     : dispatch({ type: CLEAR_BOOKS });
-// };
